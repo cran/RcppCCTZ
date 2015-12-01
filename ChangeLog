@@ -1,0 +1,21 @@
+2015-11-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/src/cctz_info.h: Updated to new upstream version which
+	no longer uses 128 byte integers and is therefore suitable for CRAN
+	* src/cctz_fmt.cc: Idem
+	* src/cctz_info.cc: Idem
+
+2015-10-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Added
+
+2015-10-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Added Travis support
+
+	* src/examples.cpp: Added examples from CCTZ repo
+
+2015-10-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/*: Initial packaging based on CCTZ repo
+
