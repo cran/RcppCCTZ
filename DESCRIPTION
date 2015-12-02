@@ -1,8 +1,8 @@
 Package: RcppCCTZ
 Type: Package
 Title: 'Rcpp' Bindings for the 'CCTZ' Library
-Version: 0.0.1
-Date: 2015-11-30
+Version: 0.0.2
+Date: 2015-12-02
 Author: Dirk Eddelbuettel
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Description: 'Rcpp' Access to the 'CCTZ' timezone library is provided.
@@ -19,6 +19,6 @@ SystemRequirements: A 64-bit POSIX OS such as Linux or OS X with IANA
         compiler.
 OS_type: unix
 NeedsCompilation: yes
-Packaged: 2015-12-01 12:28:30.661245 UTC; edd
+Packaged: 2015-12-02 13:25:19.332373 UTC; edd
 Repository: CRAN
-Date/Publication: 2015-12-01 15:07:33
+Date/Publication: 2015-12-02 14:33:25
