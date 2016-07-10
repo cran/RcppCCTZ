@@ -1,6 +1,33 @@
+2016-07-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Version 0.0.5
+
+2016-05-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/utilities.cpp: New helper function toTz()
+	* man/toTz.Rd: Documentation
+
+2016-05-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Rolled minor version and date
+
+	* src/*: Synced with CCTZ upstream
+	* inst/include/src/: Ditto
+
+2016-04-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version): Rolled minor version and date
+
+	* src/utilities.cpp (tzDiff): New simple utility to compute
+	differences between timezones
+
+2016-04-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/examples.cpp (exampleFormat): Added simple formatting example
+
 2016-04-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION: Version 0.0.3
+	* DESCRIPTION: Version 0.0.4
 	* inst/NEWS.Rd: Updated
 
 	* src/*: Updated to CCTZ v2 upstream
