@@ -9,7 +9,7 @@ formatDatetime(dtv, fmt = "\%Y-\%m-\%dT\%H:\%M:\%E*S\%Ez", lcltzstr = "UTC",
   tgttzstr = "UTC")
 
 formatDouble(secv, nanov, fmt = "\%Y-\%m-\%dT\%H:\%M:\%E*S\%Ez",
-  lcltzstr = "UTC", tgttzstr = "UTC")
+  tgttzstr = "UTC")
 }
 \arguments{
 \item{dtv}{A Datetime vector object to be formatted}
@@ -36,6 +36,14 @@ Format a Datetime vector
 An alternative to \code{format.POSIXct} based on the CCTZ library. The
 \code{formatDouble} variant uses two vectors for seconds since the epoch 
 and fractional nanoseconds, respectively, to provide fuller resolution.
+}
+\section{Note}{
+
+Windows is now supported via the \code{g++-4.9} compiler, but note
+that it provides an \emph{incomplete} C++11 library. This means we had
+to port a time parsing routine, and that string formatting is more
+limited. As one example, CCTZ frequently uses \code{"\%F \%T"} which do
+not work on Windows; one has to use \code{"\%Y-\%m-\%d \%H:\%M:\%S"}.
 }
 \examples{
 now <- Sys.time()

@@ -1,3 +1,57 @@
+2017-01-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.0
+
+	* src/examples.cpp: Reverted all format strings back to the older
+	'sprintf' style formatters to be compatible with g++-4.9
+	* src/utilities.cpp: Idem; also updated documentation
+
+	* man/RcppCCTZ-package.Rd: Documented Windows behaviour of
+	strftime formatters and lack of support for '%F %T'
+	* man/formatDatetime.Rd: Idem
+
+2017-01-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* tests/simpleTests.R: Simple unit tests
+	* tests/simpleTests.Rout.save: Reference output
+
+	* R/init.R (.onAttach): Only show Windows message in interactive mode
+
+	* src/examples.cpp: Use Windows format strings on Windows
+
+2017-01-07  Daniel C. Dillon  <dcdillon@gmail.com>
+
+	* inst/include/get_time.h: Ported from C++ library to fill in for the
+	missing strptime on Windows with g++ 4.* as used by Rtools
+	* src/time_zone_format.cc: Use ported routine
+	* src/examples.cpp: Use Windows format strings on Windows
+
+2016-12-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: No longer exclude Windows
+
+	* src/time_zone_libc.cc (cctz): Define OFFSET() and ABBR() macros
+	for MinGW
+	* src/time_zone_info.cc (cctz): Account for MinGW
+	* src/time_zone_format.cc (cctz): Idem, empty strptime use for now
+
+	* R/init.R: On Windows set TZDIR to zoneinfo from R
+
+	* src/Makevars.win: Added
+
+2016-12-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/utilities.cpp (formatDouble): Removed unused argument lcltzstr
+	* src/RcppExports.cpp (formatDouble): Idem
+	* R/RcppExports.R (formatDouble): Idem
+	* man/formatDatetime.Rd: Idem
+
+2016-12-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/NEWS.Rd: Post-release update for 0.1.0
+
 2016-12-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.1.0

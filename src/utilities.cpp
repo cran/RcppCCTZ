@@ -45,7 +45,7 @@ double tzDiff(const std::string tzfrom,
                                                       dt.getMinutes(),
                                                       dt.getSeconds()),
                                    tz1);
-    if (verbose) Rcpp::Rcout << cctz::format("%F %T %z", tp1, tz1) << std::endl;
+    if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl;
 
     const auto tp2 = cctz::convert(cctz::civil_second(dt.getYear(),
                                                       dt.getMonth(),
@@ -54,7 +54,7 @@ double tzDiff(const std::string tzfrom,
                                                       dt.getMinutes(),
                                                       dt.getSeconds()),
                                    tz2);
-    if (verbose) Rcpp::Rcout << cctz::format("%F %T %z", tp2, tz2) << std::endl;
+    if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp2, tz2) << std::endl;
 
     sc::hours d = sc::duration_cast<sc::hours>(tp1-tp2);
     if (verbose) Rcpp::Rcout << "Difference: " << d.count() << std::endl;
@@ -107,8 +107,8 @@ Rcpp::Datetime toTz(Rcpp::Datetime dt,
                                                      dt.getMinutes(),
                                                      dt.getSeconds()),
                                   tz1);
-    if (verbose) Rcpp::Rcout << cctz::format("%F %T %z", tp, tz1) << std::endl;
-    if (verbose) Rcpp::Rcout << cctz::format("%F %T %z", tp, tz2) << std::endl;
+    if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp, tz1) << std::endl;
+    if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp, tz2) << std::endl;
 
     // create a civil-time object from time-point and new timezone
     const auto ct = cctz::convert(tp, tz2);
@@ -137,6 +137,12 @@ Rcpp::Datetime toTz(Rcpp::Datetime dt,
 //' @param lcltzstr The local timezone object for creation the CCTZ timepoint
 //' @param tgttzstr The target timezone for the desired format
 //' @return A string vector with the requested format of the datetime objects
+//' @section Note:
+//' Windows is now supported via the \code{g++-4.9} compiler, but note
+//' that it provides an \emph{incomplete} C++11 library. This means we had
+//' to port a time parsing routine, and that string formatting is more
+//' limited. As one example, CCTZ frequently uses \code{"\%F \%T"} which do
+//' not work on Windows; one has to use \code{"\%Y-\%m-\%d \%H:\%M:\%S"}.
 //' @author Dirk Eddelbuettel
 //' @examples
 //' now <- Sys.time()
@@ -224,12 +230,10 @@ Rcpp::DatetimeVector parseDatetime(Rcpp::CharacterVector svec,
 Rcpp::CharacterVector formatDouble(Rcpp::NumericVector secv,
                                    Rcpp::NumericVector nanov,
                                    std::string fmt = "%Y-%m-%dT%H:%M:%E*S%Ez",
-                                   std::string lcltzstr = "UTC",
                                    std::string tgttzstr = "UTC") {
          
-    cctz::time_zone tgttz, lcltz;
+    cctz::time_zone tgttz;
     load_time_zone(tgttzstr, &tgttz);
-    load_time_zone(lcltzstr, &lcltz);
 
     auto n = secv.size();
     Rcpp::CharacterVector cv(n);

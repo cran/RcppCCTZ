@@ -23,12 +23,21 @@
 }
 \details{
   CCTZ requires a valid timezone library as well as recent-enough
-  compiler to cope with C++11.  This means that Windows is currently not
-  supported..
+  compiler to cope with C++11.
+
+  Windows is supported since version 0.2.0 via the \code{g++-4.9}
+  compiler, but note that it provides an \emph{incomplete} C++11
+  library. The \code{std::get_time} function was ported from libc++ of
+  the LLVM to enable this. However, string formatting is more limited as
+  the libc++ library used by \code{g++-4.9} does not provide complete
+  C++11 semantics. As one example, CCTZ frequently uses \code{"\%F \%T"}
+  which do not work on Windows; one has to use
+  \code{"\%Y-\%m-\%d \%H:\%M:\%S"}.
+  
 }
 \author{
-  Dirk Eddelbuettel wrote the package; Bradley White and Greg Miller
-  wrote the underlying CCTZ library,
+  Dirk Eddelbuettel wrote the package; Dan Dillon ported \code{std::get_time}
+  from LLVM's libc++; Bradley White and Greg Miller wrote the underlying CCTZ library.
 
   Maintainer: Dirk Eddelbuettel <edd@debian.org>
 }
