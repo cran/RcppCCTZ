@@ -1,3 +1,44 @@
+2017-04-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.2
+
+	* src/init.c (R_init_RcppCCTZ): all R_registerRoutines()
+	and R_useDynamicSymbols()
+	* NAMESPACE: Use .registration=TRUE on useDynLib
+
+	* src/time_zone_format.cc: Reapply required MinGW conditionals
+	required for Windows build
+
+
+2017-04-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor release and date;
+
+	* src/utilities.cpp (parseDouble): Instantiate time_point explicitly
+	for nanosecond use which seems needed on macOS (thanks, Leonardo!)
+
+	* inst/include/civil_time_detail.h: Sync'ed with upstream
+        * inst/include/time_zone.h: Idem
+        * inst/include/time_zone_if.h: Idem
+        * inst/include/time_zone_impl.h: Idem
+        * inst/include/time_zone_info.h: Idem
+        * inst/include/time_zone_libc.h: Idem
+        * inst/include/time_zone_posix.h: Idem
+        * src/time_tool.cc: Idem
+        * src/time_zone_format.cc: Idem
+        * src/time_zone_impl.cc: Idem
+        * src/time_zone_info.cc: Idem
+        * src/time_zone_libc.cc: Idem
+        * src/time_zone_lookup.cc: Idem
+        * src/time_zone_posix.cc: Idem
+
+        * inst/include/time_zone_fixed.h: Added as new upstream file
+        * inst/include/zone_info_source.h: Idem
+        * src/civil_time_detail.cc: Idem
+        * src/time_zone_fixed.cc: Idem
+
+	* inst/include/src/cctz.h: Removed as removed upstream
+
 2017-02-04  Dirk Eddelbuettel  <edd@max.eddelbuettel.com>
 
 	* DESCRIPTION (Date, Version): Release 0.2.1

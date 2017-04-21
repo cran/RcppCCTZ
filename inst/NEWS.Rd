@@ -3,6 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppcctz/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppcctz/issues/#1}{##1}}
 
+\section{Changes in version 0.2.2 (2017-xx-yy)}{
+  \itemize{
+    \item Synchronized with upstream CCTZ
+    \item The \code{time_point} object is instantiated explicitly for
+    nanosecond use which appears to be required on macOS
+  }
+}
 \section{Changes in version 0.2.1 (2017-02-04)}{
   \itemize{
     \item Conversion from timepoint to two \code{double} values now
