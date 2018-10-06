@@ -2,31 +2,31 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 example0 <- function() {
-    invisible(.Call(RcppCCTZ_example0))
+    invisible(.Call(`_RcppCCTZ_example0`))
 }
 
 helloMoon <- function(verbose = FALSE) {
-    .Call(RcppCCTZ_helloMoon, verbose)
+    .Call(`_RcppCCTZ_helloMoon`, verbose)
 }
 
 example1 <- function() {
-    invisible(.Call(RcppCCTZ_example1))
+    invisible(.Call(`_RcppCCTZ_example1`))
 }
 
 example2 <- function() {
-    .Call(RcppCCTZ_example2)
+    .Call(`_RcppCCTZ_example2`)
 }
 
 example3 <- function() {
-    invisible(.Call(RcppCCTZ_example3))
+    invisible(.Call(`_RcppCCTZ_example3`))
 }
 
 example4 <- function() {
-    invisible(.Call(RcppCCTZ_example4))
+    invisible(.Call(`_RcppCCTZ_example4`))
 }
 
 exampleFormat <- function() {
-    invisible(.Call(RcppCCTZ_exampleFormat))
+    invisible(.Call(`_RcppCCTZ_exampleFormat`))
 }
 
 #' Difference between two given timezones at a specified date.
@@ -44,13 +44,15 @@ exampleFormat <- function() {
 #' second time zone at the given date
 #' @author Dirk Eddelbuettel
 #' @examples
+#' \dontrun{
 #' # simple call: difference now
 #' tzDiff("America/New_York", "Europe/London", Sys.time())
 #' # tabulate difference for every week of the year
 #' table(sapply(0:52, function(d) tzDiff("America/New_York", "Europe/London",
 #'                                       as.POSIXct(as.Date("2016-01-01") + d*7))))
+#' }
 tzDiff <- function(tzfrom, tzto, dt, verbose = FALSE) {
-    .Call(RcppCCTZ_tzDiff, tzfrom, tzto, dt, verbose)
+    .Call(`_RcppCCTZ_tzDiff`, tzfrom, tzto, dt, verbose)
 }
 
 #' Change from one given timezone to another.
@@ -68,6 +70,7 @@ tzDiff <- function(tzfrom, tzto, dt, verbose = FALSE) {
 #' incoming object (and its timezone) shifted to the target timezone.
 #' @author Dirk Eddelbuettel
 #' @examples
+#' \dontrun{
 #' toTz(Sys.time(), "America/New_York", "Europe/London")
 #' # this redoes the 'Armstrong on the moon in NYC and Sydney' example
 #' # note that the default print method will print the return object in _your local time_
@@ -76,8 +79,9 @@ tzDiff <- function(tzfrom, tzto, dt, verbose = FALSE) {
 #' format(toTz(ISOdatetime(1969,7,20,22,56,0,tz="UTC"), 
 #'             "America/New_York", "Australia/Sydney", verbose=TRUE), 
 #'        tz="Australia/Sydney")
+#' }
 toTz <- function(dt, tzfrom, tzto, verbose = FALSE) {
-    .Call(RcppCCTZ_toTz, dt, tzfrom, tzto, verbose)
+    .Call(`_RcppCCTZ_toTz`, dt, tzfrom, tzto, verbose)
 }
 
 #' Format a Datetime vector
@@ -101,12 +105,14 @@ toTz <- function(dt, tzfrom, tzto, verbose = FALSE) {
 #' not work on Windows; one has to use \code{"\%Y-\%m-\%d \%H:\%M:\%S"}.
 #' @author Dirk Eddelbuettel
 #' @examples
+#' \dontrun{
 #' now <- Sys.time()
 #' formatDatetime(now)            # current (UTC) time, in full precision RFC3339
 #' formatDatetime(now, tgttzstr="America/New_York")  # same but in NY
 #' formatDatetime(now + 0:4)	   # vectorised
+#' }
 formatDatetime <- function(dtv, fmt = "%Y-%m-%dT%H:%M:%E*S%Ez", lcltzstr = "UTC", tgttzstr = "UTC") {
-    .Call(RcppCCTZ_formatDatetime, dtv, fmt, lcltzstr, tgttzstr)
+    .Call(`_RcppCCTZ_formatDatetime`, dtv, fmt, lcltzstr, tgttzstr)
 }
 
 #' Parse a Datetime vector
@@ -122,16 +128,18 @@ formatDatetime <- function(dtv, fmt = "%Y-%m-%dT%H:%M:%E*S%Ez", lcltzstr = "UTC"
 #' two columns for seconds and nanoseconds for \code{parseDouble}
 #' @author Dirk Eddelbuettel
 #' @examples
+#' \dontrun{
 #' ds <- getOption("digits.secs")
 #' options(digits.secs=6) # max value
-#' parseDatetime("2016-12-07 10:11:12",        "%Y-%m-%d %H:%M:%S");   # full seconds
-#' parseDatetime("2016-12-07 10:11:12.123456", "%Y-%m-%d %H:%M:%E*S"); # fractional seconds
+#' parseDatetime("2016-12-07 10:11:12",        "%Y-%m-%d %H:%M:%S")   # full seconds
+#' parseDatetime("2016-12-07 10:11:12.123456", "%Y-%m-%d %H:%M:%E*S") # fractional seconds
 #' parseDatetime("2016-12-07T10:11:12.123456-00:00")  ## default RFC3339 format
 #' now <- trunc(Sys.time())
 #' parseDatetime(formatDatetime(now + 0:4))	   			# vectorised
 #' options(digits.secs=ds)
+#' }
 parseDatetime <- function(svec, fmt = "%Y-%m-%dT%H:%M:%E*S%Ez", tzstr = "UTC") {
-    .Call(RcppCCTZ_parseDatetime, svec, fmt, tzstr)
+    .Call(`_RcppCCTZ_parseDatetime`, svec, fmt, tzstr)
 }
 
 #' @rdname formatDatetime
@@ -139,15 +147,15 @@ parseDatetime <- function(svec, fmt = "%Y-%m-%dT%H:%M:%E*S%Ez", tzstr = "UTC") {
 #' @param nanov A numeric vector with nanoseconds since the epoch,
 #' complementing \code{secv}.
 formatDouble <- function(secv, nanov, fmt = "%Y-%m-%dT%H:%M:%E*S%Ez", tgttzstr = "UTC") {
-    .Call(RcppCCTZ_formatDouble, secv, nanov, fmt, tgttzstr)
+    .Call(`_RcppCCTZ_formatDouble`, secv, nanov, fmt, tgttzstr)
 }
 
 #' @rdname parseDatetime
 parseDouble <- function(svec, fmt = "%Y-%m-%dT%H:%M:%E*S%Ez", tzstr = "UTC") {
-    .Call(RcppCCTZ_parseDouble, svec, fmt, tzstr)
+    .Call(`_RcppCCTZ_parseDouble`, svec, fmt, tzstr)
 }
 
 now <- function() {
-    invisible(.Call(RcppCCTZ_now))
+    invisible(.Call(`_RcppCCTZ_now`))
 }
 

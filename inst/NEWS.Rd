@@ -3,6 +3,22 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppcctz/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppcctz/issues/#1}{##1}}
 
+\section{Changes in version 0.2.4 (2018-10-24)}{
+  \itemize{
+    \item An unused \code{main()} in \code{src/time_tool.cc} was
+    \code{#ifdef}'ed away to please another compiler/OS combination.
+    \item The \code{tzDiff} function now supports a vector argument
+    (\ghpr{24}).
+    \item An unnecessary \code{#include} was removed (\ghpr{25}).
+    \item Some tests are not conditioning on Solaris to not fail there
+    (\ghpr{26}).
+    \item The CCTZ code was updated to the newest upstream version
+    (\ghpr{27}).
+    \item Unit tests now use the \pkg{RUnit} package replacing a simpler
+    tests script. 
+  }
+}
+
 \section{Changes in version 0.2.3 (2017-06-19)}{
   \itemize{
     \item On Windows, the \code{TZDIR} environment variable is now set

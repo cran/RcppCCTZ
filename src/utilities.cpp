@@ -2,11 +2,14 @@
 
 #include <Rcpp.h>
 
-#include "civil_time.h"
-#include "time_zone.h"
-#include "time_zone_if.h"
+#include "cctz/civil_time.h"
+#include "cctz/time_zone.h"
+#include <algorithm> //std::transform
 
 namespace sc = std::chrono; 	// shorthand
+
+double tzDiffAtomic(const cctz::time_zone& tz1, const cctz::time_zone& tz2, const Rcpp::Datetime& dt, bool verbose);
+
 
 //' Difference between two given timezones at a specified date.
 //'
@@ -23,39 +26,59 @@ namespace sc = std::chrono; 	// shorthand
 //' second time zone at the given date
 //' @author Dirk Eddelbuettel
 //' @examples
+//' \dontrun{
 //' # simple call: difference now
 //' tzDiff("America/New_York", "Europe/London", Sys.time())
 //' # tabulate difference for every week of the year
 //' table(sapply(0:52, function(d) tzDiff("America/New_York", "Europe/London",
 //'                                       as.POSIXct(as.Date("2016-01-01") + d*7))))
+//' }
 // [[Rcpp::export]]
-double tzDiff(const std::string tzfrom,
-              const std::string tzto,
-              Rcpp::Datetime dt,
-              bool verbose=false) {
-
+Rcpp::NumericVector tzDiff(const std::string tzfrom,
+                           const std::string tzto,
+                           const Rcpp::NumericVector& dt,
+                           bool verbose=false) {
+    
     cctz::time_zone tz1, tz2;
+    
     if (!cctz::load_time_zone(tzfrom, &tz1)) Rcpp::stop("Bad 'from' timezone");
     if (!cctz::load_time_zone(tzto, &tz2))   Rcpp::stop("Bad 'to' timezone");
+    
+    Rcpp::NumericVector res;
+    
+    if (dt.inherits("POSIXct")) {
+        res = Rcpp::NumericVector(dt.size());
+        std::transform(dt.begin(), dt.end(), res.begin(), 
+                       [&tz1, &tz2, verbose](double dtval){
+                           Rcpp::Datetime dtt(dtval);
+                           return tzDiffAtomic(tz1, tz2, dtt, verbose);
+                        });
+        
+    } else Rcpp::stop("Unhandled date class");
+    
+    return res;
+}
 
+double tzDiffAtomic(const cctz::time_zone& tz1, const cctz::time_zone& tz2, const Rcpp::Datetime& dt, bool verbose)
+{
     const auto tp1 = cctz::convert(cctz::civil_second(dt.getYear(),
                                                       dt.getMonth(),
                                                       dt.getDay(),
                                                       dt.getHours(),
                                                       dt.getMinutes(),
                                                       dt.getSeconds()),
-                                   tz1);
+                                                      tz1);
     if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp1, tz1) << std::endl;
-
+    
     const auto tp2 = cctz::convert(cctz::civil_second(dt.getYear(),
                                                       dt.getMonth(),
                                                       dt.getDay(),
                                                       dt.getHours(),
                                                       dt.getMinutes(),
                                                       dt.getSeconds()),
-                                   tz2);
+                                                      tz2);
     if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp2, tz2) << std::endl;
-
+    
     sc::hours d = sc::duration_cast<sc::hours>(tp1-tp2);
     if (verbose) Rcpp::Rcout << "Difference: " << d.count() << std::endl;
     
@@ -78,6 +101,7 @@ double tzDiff(const std::string tzfrom,
 //' incoming object (and its timezone) shifted to the target timezone.
 //' @author Dirk Eddelbuettel
 //' @examples
+//' \dontrun{
 //' toTz(Sys.time(), "America/New_York", "Europe/London")
 //' # this redoes the 'Armstrong on the moon in NYC and Sydney' example
 //' # note that the default print method will print the return object in _your local time_
@@ -86,6 +110,7 @@ double tzDiff(const std::string tzfrom,
 //' format(toTz(ISOdatetime(1969,7,20,22,56,0,tz="UTC"), 
 //'             "America/New_York", "Australia/Sydney", verbose=TRUE), 
 //'        tz="Australia/Sydney")
+//' }
 // [[Rcpp::export]]
 Rcpp::Datetime toTz(Rcpp::Datetime dt,
                     const std::string tzfrom,
@@ -143,10 +168,12 @@ Rcpp::Datetime toTz(Rcpp::Datetime dt,
 //' not work on Windows; one has to use \code{"\%Y-\%m-\%d \%H:\%M:\%S"}.
 //' @author Dirk Eddelbuettel
 //' @examples
+//' \dontrun{
 //' now <- Sys.time()
 //' formatDatetime(now)            # current (UTC) time, in full precision RFC3339
 //' formatDatetime(now, tgttzstr="America/New_York")  # same but in NY
 //' formatDatetime(now + 0:4)	   # vectorised
+//' }
 // [[Rcpp::export]]
 Rcpp::CharacterVector formatDatetime(Rcpp::DatetimeVector dtv,
                                      std::string fmt = "%Y-%m-%dT%H:%M:%E*S%Ez",
@@ -185,14 +212,16 @@ Rcpp::CharacterVector formatDatetime(Rcpp::DatetimeVector dtv,
 //' two columns for seconds and nanoseconds for \code{parseDouble}
 //' @author Dirk Eddelbuettel
 //' @examples
+//' \dontrun{
 //' ds <- getOption("digits.secs")
 //' options(digits.secs=6) # max value
-//' parseDatetime("2016-12-07 10:11:12",        "%Y-%m-%d %H:%M:%S");   # full seconds
-//' parseDatetime("2016-12-07 10:11:12.123456", "%Y-%m-%d %H:%M:%E*S"); # fractional seconds
+//' parseDatetime("2016-12-07 10:11:12",        "%Y-%m-%d %H:%M:%S")   # full seconds
+//' parseDatetime("2016-12-07 10:11:12.123456", "%Y-%m-%d %H:%M:%E*S") # fractional seconds
 //' parseDatetime("2016-12-07T10:11:12.123456-00:00")  ## default RFC3339 format
 //' now <- trunc(Sys.time())
 //' parseDatetime(formatDatetime(now + 0:4))	   			# vectorised
 //' options(digits.secs=ds)
+//' }
 // [[Rcpp::export]]
 Rcpp::DatetimeVector parseDatetime(Rcpp::CharacterVector svec,
                                    std::string fmt = "%Y-%m-%dT%H:%M:%E*S%Ez",
