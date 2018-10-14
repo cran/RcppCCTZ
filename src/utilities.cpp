@@ -92,12 +92,12 @@ double tzDiffAtomic(const cctz::time_zone& tz1, const cctz::time_zone& tz2, cons
 //' a Datetime object from one given timezone to another.
 //'
 //' @title Shift datetime object from one timezone to another
-//' @param dt A Datetime object specifying when the difference is to be computed.
+//' @param dtv A DatetimeVector object specifying when the difference is to be computed.
 //' @param tzfrom The first time zone as a character vector.
 //' @param tzto The second time zone as a character vector.
 //' @param verbose A boolean toggle indicating whether more verbose operations
 //' are desired, default is \code{FALSE}.
-//' @return A Datetime object with the given (civil time) determined by the
+//' @return A DatetimeVector object with the given (civil time) determined by the
 //' incoming object (and its timezone) shifted to the target timezone.
 //' @author Dirk Eddelbuettel
 //' @examples
@@ -112,38 +112,45 @@ double tzDiffAtomic(const cctz::time_zone& tz1, const cctz::time_zone& tz2, cons
 //'        tz="Australia/Sydney")
 //' }
 // [[Rcpp::export]]
-Rcpp::Datetime toTz(Rcpp::Datetime dt,
-                    const std::string tzfrom,
-                    const std::string tzto,
-                    bool verbose=false) {
+Rcpp::DatetimeVector toTz(Rcpp::DatetimeVector dtv,
+                          const std::string tzfrom,
+                          const std::string tzto,
+                          bool verbose=false) {
 
-    // retain existing sub-second information
-    double remainder = dt.getFractionalTimestamp() - std::floor(dt.getFractionalTimestamp());
+    size_t n = dtv.size();
+    Rcpp::DatetimeVector rsv(n);
+    for (size_t i=0; i<n; i++) {
+        Rcpp::Datetime dt = dtv[i];
     
-    cctz::time_zone tz1, tz2;   // two time zone objects
-    if (!cctz::load_time_zone(tzfrom, &tz1)) Rcpp::stop("Bad 'from' timezone");
-    if (!cctz::load_time_zone(tzto, &tz2))   Rcpp::stop("Bad 'to' timezone");
-
-    // incoming time-point object given civil-time and timezone
-    const auto tp = cctz::convert(cctz::civil_second(dt.getYear(),
-                                                     dt.getMonth(),
-                                                     dt.getDay(),
-                                                     dt.getHours(),
-                                                     dt.getMinutes(),
-                                                     dt.getSeconds()),
-                                  tz1);
-    if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp, tz1) << std::endl;
-    if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp, tz2) << std::endl;
-
-    // create a civil-time object from time-point and new timezone
-    const auto ct = cctz::convert(tp, tz2);
-    if (verbose) Rcpp::Rcout << ct << std::endl;
+        // retain existing sub-second information
+        double remainder = dt.getFractionalTimestamp() - std::floor(dt.getFractionalTimestamp());
     
-    cctz::time_point<cctz::sys_seconds> ntp = cctz::convert(ct, tz2);
-    // time since epoch, with fractional seconds added back in
-    double newdt = ntp.time_since_epoch().count() + remainder;
+        cctz::time_zone tz1, tz2;   // two time zone objects
+        if (!cctz::load_time_zone(tzfrom, &tz1)) Rcpp::stop("Bad 'from' timezone");
+        if (!cctz::load_time_zone(tzto, &tz2))   Rcpp::stop("Bad 'to' timezone");
 
-    return Rcpp::Datetime(newdt);
+        // incoming time-point object given civil-time and timezone
+        const auto tp = cctz::convert(cctz::civil_second(dt.getYear(),
+                                                         dt.getMonth(),
+                                                         dt.getDay(),
+                                                         dt.getHours(),
+                                                         dt.getMinutes(),
+                                                         dt.getSeconds()),
+                                      tz1);
+        if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp, tz1) << std::endl;
+        if (verbose) Rcpp::Rcout << cctz::format("%Y-%m-%d %H:%M:%S %z", tp, tz2) << std::endl;
+        
+        // create a civil-time object from time-point and new timezone
+        const auto ct = cctz::convert(tp, tz2);
+        if (verbose) Rcpp::Rcout << ct << std::endl;
+    
+        cctz::time_point<cctz::sys_seconds> ntp = cctz::convert(ct, tz2);
+        // time since epoch, with fractional seconds added back in
+        double newdt = ntp.time_since_epoch().count() + remainder;
+        Rcpp::Datetime res = Rcpp::Datetime(newdt);
+        rsv[i] = res;
+    }
+    return rsv;
 }
 
 
@@ -231,9 +238,12 @@ Rcpp::DatetimeVector parseDatetime(Rcpp::CharacterVector svec,
     sc::system_clock::time_point tp;
     cctz::time_point<cctz::sys_seconds> unix_epoch =
         sc::time_point_cast<cctz::sys_seconds>(sc::system_clock::from_time_t(0));
+
+    // if we wanted a 'start' timer
+    //sc::system_clock::time_point start = sc::high_resolution_clock::now();
     
     auto n = svec.size();
-    Rcpp::DatetimeVector dv(n);
+    Rcpp::DatetimeVector dv(n, tzstr.c_str());
     for (auto i=0; i<n; i++) {
         std::string txt(svec(i));
         
@@ -241,11 +251,20 @@ Rcpp::DatetimeVector parseDatetime(Rcpp::CharacterVector svec,
         // Rcpp::Rcout << cctz::format(fmt, tp, tz) << std::endl;
             
         // time since epoch, with fractional seconds added back in
-        double dt = (tp - unix_epoch).count() * 1.0e-9;
-        //Rcpp::Rcout << dt << std::endl;
+        // only microseconds guaranteed to be present
+        double dt = sc::duration_cast<sc::microseconds>(tp - unix_epoch).count() * 1.0e-6;
+        
+        // Rcpp::Rcout << "tp: " << cctz::format(fmt, tp, tz) << "\n"
+        //             << "unix epoch: " << cctz::format(fmt, unix_epoch, tz) << "\n"
+        //             << "(tp - unix.epoch).count(): " << (tp - unix_epoch).count() << "\n"
+        //             << "dt: " << dt << std::endl;
             
         dv(i) = Rcpp::Datetime(dt);
     }
+            
+    // Rcpp::Rcout << "Took: "
+    //             << sc::nanoseconds(sc::high_resolution_clock::now() - start).count() 
+    //             << " nanosec" << " " << std::endl;
     return dv;
 }
 

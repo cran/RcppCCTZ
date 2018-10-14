@@ -1,3 +1,37 @@
+2018-10-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.5
+
+2018-10-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/unitTests/runit.Format.R (test.Format.R): Added test for
+	format and parse of dual double vector (at highest precision)
+
+	* local/cctz/: Added upstream to repo for easier diff comparison with
+	upstream changes; same directory layout as upstream and now here
+
+2018-10-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* src/utilities.cpp (toTz): Vectorized toTz
+	* man/toTz.Rd: Updated documentation
+
+	* inst/unitTests/runit.Parse.R (test.Parse): Added test for
+	vectorised parse
+
+2018-10-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* src/utilities.cpp (parseDatetime): Set the timezone when
+	construction a DatetimeVector; correctly scale time since epoch
+
+	* inst/unitTests/runit.Format.R: No longer condition on Solaris
+	* inst/unitTests/runit.Parse.R: Idem, added two more parseDouble() tests
+
 2018-10-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.2.4
