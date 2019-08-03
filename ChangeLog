@@ -1,3 +1,33 @@
+2019-08-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.6
+
+        * DESCRIPTION (Suggests): Added tinytest
+        * .travis.yml (install): Install tinytest
+
+        * tests/tinytest.R: New test driver using tinytest
+	* test/doRUnit.R: Removed
+
+        * inst/tinytest/test_format.R: Converted from RUnit
+        * inst/tinytest/test_parse.R: Idem
+        * inst/tinytest/test_tz.R: Idem
+	
+	* README.md (tinytest): Added dependency badge, add installation
+	paragraph, add continued testing post-installation via tinytest
+
+2019-08-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* src/*: Synchronized with upstream CCTZ release 2.3
+	* inst/include/cctz/*: Idem
+	
+	* src/time_zone_format.cc: Carry std::get_time patch forward
+	* src/zone_info_source.cc: Carry forward no linking ZoneInfoSourceFactory
+
+	* local/cctz-20181003/: Renamed from local/cctz to show release date
+	* local/cctz-20190702/: Added
+
 2018-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.2.5
@@ -11,6 +41,9 @@
 
 	* local/cctz/: Added upstream to repo for easier diff comparison with
 	upstream changes; same directory layout as upstream and now here
+
+	* src/utilities.cpp: Set target timezone in DatetimeVector; relax
+	one \dontrun
 
 2018-10-09  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -54,7 +87,7 @@
 	* DESCRIPTION (Version, Date): Roll minor version
 
 	* src/time_zone_format.cc: Restore Windows build by also recognising
-	MinGW / Rools (so that the contributed src/get_time.h is used)
+	MinGW / Rtools (so that the contributed src/get_time.h is used)
 	* src/zone_info_source.cc (cctz_extension): Idem, and prevent attempt
 	to link ZoneInfoSourceFactory
 
