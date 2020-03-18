@@ -3,6 +3,19 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppcctz/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppcctz/issues/#1}{##1}}
 
+\section{Changes in version 0.2.7 (2020-03-18)}{
+  \itemize{
+    \item Added functions \code{_RcppCCTZ_convertToCivilSecond} that
+    converts a time point to the number of seconds since epoch, and
+    \code{_RcppCCTZ_convertToTimePoint} that converts a number of seconds
+    since epoch into a time point; these functions are only callable
+    from C level (Leonardo in \ghpr{34} and \ghpr{35}). 
+    \item Added function \code{_RcppCCTZ_getOffset} that returns the offset
+    at a speficied time-point for a specified timezone; this function is
+    only callable from C level (Leonardo in \ghpr{32}).
+  }
+}
+
 \section{Changes in version 0.2.6 (2019-08-03)}{
   \itemize{
     \item Synchronized with upstream CCTZ release 2.3 plus commits

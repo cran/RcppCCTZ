@@ -1,11 +1,11 @@
-93dd7d03a2c89a5bba7ba03d2494e051 *ChangeLog
-975f901bfcb83c0c53e398ca408750b0 *DESCRIPTION
+e246ec7080761b575be24c87377d2970 *ChangeLog
+6ee99c317b5496217fb096ae829ef42c *DESCRIPTION
 bdfe89628809034bb2aa6fafe2592d04 *NAMESPACE
 110fbc638923840928b02bc8b718b643 *R/RcppExports.R
 d94d737785e7fdd2a6b0f60136b2d25d *R/init.R
-95dacc76e37d106498b27286cb029db8 *README.md
+66d9e2b7058b73a8393afb88d95a269c *README.md
 89936c36d9e3e87ade958c90bb42c0b7 *cleanup
-81568b4991d4da647a50e67bfdc1ed4b *inst/NEWS.Rd
+2afc3f142f8df1833c6cf10535885181 *inst/NEWS.Rd
 d2b3fb7611b7e6da273e14de375686ca *inst/include/cctz/civil_time.h
 d1a9c5fba7961edc3ae4ad37f361168f *inst/include/cctz/civil_time_detail.h
 5598f154ef0284dcc8f9327a96ca360e *inst/include/cctz/time_zone.h
@@ -20,7 +20,7 @@ a9c53e2ba5af3d54ac5ab64354817ce7 *man/toTz.Rd
 22bcff7a2c3dc34dc747b17d67dfae63 *man/tzDiff.Rd
 2f15edbcf3ff03a33c70ddbea68a5128 *src/Makevars
 2f15edbcf3ff03a33c70ddbea68a5128 *src/Makevars.win
-46253ffb6dc15962107844d7e46ba04c *src/RcppExports.cpp
+7697a8af4fa137c5c6d61f6d3b7bfb4f *src/RcppExports.cpp
 8e48937ed5ce673434f4679db99d99a6 *src/civil_time_detail.cc
 0fa70cef373bcb8ac28f6f14c37fc7db *src/examples.cpp
 2e379d00fe16be1165130445d7d4cdc9 *src/get_time.h
@@ -40,6 +40,6 @@ b27b5e15323d9e86fb1e78ccc6cb2a23 *src/time_zone_impl.h
 278bdda83ee5c4aeb100bda907cb2e5a *src/time_zone_posix.cc
 38903f4cf6c42636e9f42207b5e435d0 *src/time_zone_posix.h
 fe853b4307012f2615219a2a78ff069c *src/tzfile.h
-f9f66c9ffec33096f2bc1a8a7e9f994a *src/utilities.cpp
+16be726d84e0e4395c05116b833817fd *src/utilities.cpp
 8ffc57201fc949a23b84033052d536cc *src/zone_info_source.cc
 cad3d97e1ff5fce87a342264b245bf1d *tests/tinytest.R
