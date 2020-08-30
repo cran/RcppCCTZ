@@ -1,8 +1,40 @@
+2020-08-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.9
+
+	* src/RcppExports_snippet.h: Snippet of exported functions needed in
+	RcppExports.cpp (but not added by compileAttributes)
+
+2020-08-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/utilities.cpp: Show parsing example of YYYYMMDD HHMMSS.NNN
+	* R/RcppExports.R: Idem
+	* man/parseDatetime.Rd: Idem
+
+2020-08-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/include/RcppCCTZ_types.h: Additional declarations header
+
+2020-08-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/include/RcppCCTZ_API.h: Add convertToCivilSecond too
+	* src/RcppExports.cpp: Note that one part is 'manual'
+
+2020-08-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/include/RcppCCTZ_API.h: Add API definitions header file
+
 2020-08-03 Leonardo Silvestri <lsilvestri@ztsdb.org>
 
 	* DESCRIPTION (Version, Date): Release 0.2.8
 
-	* src/utilities.cpp: No-throw versions of callable C functions for Win-32
+	* src/utilities.cpp: No-throw versions of C functions for Win-32
 	* src/RcppExports.cpp: Idem
 
 2020-05-12  Dirk Eddelbuettel  <edd@debian.org>

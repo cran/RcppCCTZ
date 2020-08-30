@@ -223,6 +223,7 @@ Rcpp::CharacterVector formatDatetime(Rcpp::DatetimeVector dtv,
 //' parseDatetime("2016-12-07 10:11:12",        "%Y-%m-%d %H:%M:%S")   # full seconds
 //' parseDatetime("2016-12-07 10:11:12.123456", "%Y-%m-%d %H:%M:%E*S") # fractional seconds
 //' parseDatetime("2016-12-07T10:11:12.123456-00:00")  ## default RFC3339 format
+//' parseDatetime("20161207 101112.123456",     "%E4Y%m%d %H%M%E*S")   # fractional seconds
 //' now <- trunc(Sys.time())
 //' parseDatetime(formatDatetime(now + 0:4))	   			# vectorised
 //' options(digits.secs=ds)
@@ -382,7 +383,7 @@ int _RcppCCTZ_getOffset_nothrow(std::int_fast64_t s, const char* tzstr, int& off
 }
 
 
-int _RcppCCTZ_convertToCivilSecond_nothrow(const time_point<seconds>& tp, const char* tzstr, cctz::civil_second& cs) {
+int _RcppCCTZ_convertToCivilSecond_nothrow(const cctz::time_point<cctz::seconds>& tp, const char* tzstr, cctz::civil_second& cs) {
     cctz::time_zone tz;
     if (!load_time_zone(tzstr, &tz)) {
         return -1;
@@ -392,7 +393,7 @@ int _RcppCCTZ_convertToCivilSecond_nothrow(const time_point<seconds>& tp, const 
 }
 
 
-int _RcppCCTZ_convertToTimePoint_nothrow(const cctz::civil_second& cs, const char* tzstr, time_point<seconds>& tp) {
+int _RcppCCTZ_convertToTimePoint_nothrow(const cctz::civil_second& cs, const char* tzstr, cctz::time_point<cctz::seconds>& tp) {
     cctz::time_zone tz;
     if (!load_time_zone(tzstr, &tz)) {
         return -1;
