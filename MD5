@@ -1,11 +1,11 @@
-cafd22e7e5a8c60f9c4c66418cea03d9 *ChangeLog
-436ab63aa063e304a942ecd6f26f75f1 *DESCRIPTION
+4c58c0a0f9e80a64548dcc1b8721ba0b *ChangeLog
+d808b7bc7beff8cf1fb212e49b51961c *DESCRIPTION
 bdfe89628809034bb2aa6fafe2592d04 *NAMESPACE
 ec6e931dfb406121352ecc96621e7f99 *R/RcppExports.R
 d94d737785e7fdd2a6b0f60136b2d25d *R/init.R
-fd15ec455d572689c5e061172c85a319 *README.md
+e7ecfb4325c732bf339ff5f98ae2c9e0 *README.md
 89936c36d9e3e87ade958c90bb42c0b7 *cleanup
-4494d53c2cfcbb2351e9f8909988a181 *inst/NEWS.Rd
+c352448218ab8af68619ff4b38bd3b2d *inst/NEWS.Rd
 ed6eca528defc10714fa4225353981f2 *inst/include/RcppCCTZ_API.h
 2c98ed80d8423e7c4a780a516a726765 *inst/include/RcppCCTZ_types.h
 d2b3fb7611b7e6da273e14de375686ca *inst/include/cctz/civil_time.h
@@ -21,6 +21,7 @@ a848f8f29d54ef1531a1185c47d76838 *man/formatDatetime.Rd
 a9c53e2ba5af3d54ac5ab64354817ce7 *man/toTz.Rd
 22bcff7a2c3dc34dc747b17d67dfae63 *man/tzDiff.Rd
 2f15edbcf3ff03a33c70ddbea68a5128 *src/Makevars
+bf38c5847f8fe86c69f6142d1b210d58 *src/Makevars.ucrt
 2f15edbcf3ff03a33c70ddbea68a5128 *src/Makevars.win
 cb3a0102a75ec491e4e2e579d07a2590 *src/RcppExports.cpp
 d0bc8bdbc1efe3b52812f915854b0d97 *src/RcppExports_snippet.h
