@@ -1,3 +1,31 @@
+2022-08-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.11
+
+2022-08-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml (jobs): Use r2u
+
+2022-07-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/include/cctz/*: Synchronized with CCTZ repo
+	* src/*: Ditto
+
+2022-07-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+2022-07-26  Jing Lu  <lujin@google.com>
+
+	* inst/include/RcppCCTZ_API.h: More specific #include files: add
+	R_ext/Rdynload.h for R_GetCCallable, remove umbrella header R.h
+
+2021-12-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.10
+
 2021-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/Makevars.ucrt: Based on patch by Tomas Kalibera that is part of
