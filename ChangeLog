@@ -1,3 +1,16 @@
+2022-11-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Release 0.2.12
+
+2022-11-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/utilities.cpp (parseDatetime,parseDouble): Support NA value on
+	incoming data which now return NA values
+
+	* .editorconfig: Added
+
+	* .github/workflows/ci.yaml (jobs): Update to actions/checkout@v3
+
 2022-08-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Release 0.2.11
@@ -534,4 +547,3 @@
 2015-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/*: Initial packaging based on CCTZ repo
-
