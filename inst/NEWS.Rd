@@ -3,6 +3,23 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/rcppcctz/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/rcppcctz/issues/#1}{##1}}
 
+\section{Changes in version 0.2.13 (2024-12-11)}{
+  \itemize{
+    \item No longer set compilation standard as recent R version set a
+    sufficiently high minimum
+    \item Qualify a call to \code{cctz::format} (Michael Quinn in \ghpr{44})
+    \item Routine updates to continuous integration and badges
+    \item Switch to Authors@R in DESCRIPTION
+  }
+}
+
+\section{Changes in version 0.2.12 (2022-11-06)}{
+  \itemize{
+    \item Support NA values in numerical or character input
+    \item GitHub Actions were updated to checkout version 3.
+  }
+}
+
 \section{Changes in version 0.2.11 (2022-08-06)}{
   \itemize{
     \item More specific includes in RcppCCTZ_API.h (Jing Lu in \ghpr{42}
@@ -30,7 +47,7 @@
 
 \section{Changes in version 0.2.8 (2020-08-04)}{
   \itemize{
-    \item Added three new \code{nothrow} variants (needed for win32) needed 
+    \item Added three new \code{nothrow} variants (needed for win32) needed
     by the expanded \pkg{nanotime} package (Leonardo in \ghpr{37})
   }
 }
@@ -41,7 +58,7 @@
     converts a time point to the number of seconds since epoch, and
     \code{_RcppCCTZ_convertToTimePoint} that converts a number of seconds
     since epoch into a time point; these functions are only callable
-    from C level (Leonardo in \ghpr{34} and \ghpr{35}). 
+    from C level (Leonardo in \ghpr{34} and \ghpr{35}).
     \item Added function \code{_RcppCCTZ_getOffset} that returns the offset
     at a speficied time-point for a specified timezone; this function is
     only callable from C level (Leonardo in \ghpr{32}).
@@ -53,7 +70,7 @@
     \item Synchronized with upstream CCTZ release 2.3 plus commits
     accrued since then (Dirk in \ghpr{30}).
     \item The package now uses \pkg{tinytest} for unit tests (Dirk in
-    \ghpr{31}). 
+    \ghpr{31}).
   }
 }
 
@@ -81,7 +98,7 @@
     \item The CCTZ code was updated to the newest upstream version
     (\ghpr{27}).
     \item Unit tests now use the \pkg{RUnit} package replacing a simpler
-    tests script. 
+    tests script.
   }
 }
 
